@@ -26,15 +26,16 @@ h1{
 }
 
 .btn2 {
-  align-self: flex-end;
   background-color: white;
   border-radius: 10px;
   font-size: 12px;
-  padding: 8px 18px;
+  padding: 8px 12px;
   margin-right: 10px;
   margin-left: 10px;
   color: black;
   border: 2px solid #555555;
+  position: absolute;
+  right: 30%;
 }
 
 .btn2:hover {
@@ -46,6 +47,7 @@ h1{
   display: none;
 }
 
+
 input[type=text]{
   width: 30%;
   height: 30px;
@@ -55,9 +57,20 @@ input[type=text]{
 }
 
  input[type=checkbox] {
+  position: absolute;
+  left: 30%;
   height: 25px;
   width: 25px;
-  align-self: flex-start;
+}
+
+.lines{
+  padding-top: 8px;
+  padding-bottom: 8px;
+  position: relative;
+  left: 35%;
+  font-size: 25px;
+  border-bottom: 1px solid black;
+  width: 30%;
 }
 
 .counter{
