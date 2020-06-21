@@ -1,7 +1,7 @@
 (ns app.views
   (:require [reagent.core :refer [atom]]))
 
-(defonce tasks (atom '({:1 "Teszt" :2 false} {:1 "Alma" :2 false} {:1 "Körte" :2 false} {:1 "Barack" :2 false})))
+(def tasks (atom []))
 
 (defn atom-input [value]
     [:input {:type "text"
@@ -12,14 +12,12 @@
   (swap! tasks conj {:1 @value :2 false})
   (reset! value ""))
 
-
 (defn clear-all []
-    (reset! tasks '()))
+    (reset! tasks []))
 
-(defn delete-task [value]
-    (swap! tasks (remove (nth @tasks @value) tasks)))
-
-;(defn done [value])
+(defn delete-task [param]
+    (reset! tasks (into [] (concat (subvec @tasks 0 param)
+                                  (subvec @tasks (inc param))))))
 
 
 (defn app []
@@ -31,7 +29,6 @@
        [:button.btn1 {:on-click #(add val)} "Add"]
        [:button.btn1 {:on-click #(clear-all)} "Clear"]
        [:p.counter "Tasks: " (count @tasks)]
-       [:p @tasks]
        (for [x (range (count @tasks))]
         (let [task (nth @tasks x)]
-          [:p [:input {:type "checkbox" :on-click #() }] (task :1) [:button.btn2 {:on-click #(delete-task x) } "Delete"]]))])))
+          [:p [:input {:type "checkbox" :checked (task :2) :on-click #(swap! tasks update-in [x :2] not)}] (task :1) [:button.btn2 {:on-click #(delete-task x) :class [(when (not (task :2)) "hidden" )]} "Delete"]]))])))
